@@ -1,0 +1,70 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Enemy_AI/Scripts/enemy_RayCast.gd" type="Script" id=1]
+[ext_resource path="res://Enemy_AI/Scripts/Enemy.gd" type="Script" id=2]
+
+[sub_resource type="CapsuleMesh" id=1]
+radius = 0.5
+radial_segments = 16
+rings = 4
+
+[sub_resource type="CapsuleShape" id=2]
+radius = 0.5
+
+[sub_resource type="ConvexPolygonShape" id=3]
+points = PoolVector3Array( 0, 0, 0, 10, 0, 10, 8, 8, 12, 0, 10, 15, -8, 8, 12, -10, 0, 10, -8, -8, 12, 0, -10, 15, 8, -8, 12 )
+
+[sub_resource type="BoxShape" id=4]
+extents = Vector3( 1.5, 1, 1.5 )
+
+[node name="Enemy" type="KinematicBody" groups=["Enemy"]]
+script = ExtResource( 2 )
+speed = 3.0
+
+[node name="Mesh" type="Spatial" parent="."]
+
+[node name="CSGMesh" type="CSGMesh" parent="Mesh"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0 )
+mesh = SubResource( 1 )
+
+[node name="CSGBox" type="CSGBox" parent="Mesh"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0.5 )
+width = 0.5
+height = 0.5
+depth = 0.5
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0 )
+shape = SubResource( 2 )
+
+[node name="Timers" type="Node" parent="."]
+
+[node name="Nav_timer" type="Timer" parent="Timers"]
+autostart = true
+
+[node name="Areas" type="Spatial" parent="."]
+
+[node name="FOV" type="Area" parent="Areas"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Areas/FOV"]
+shape = SubResource( 3 )
+
+[node name="Sound_area" type="Area" parent="Areas"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Areas/Sound_area"]
+shape = SubResource( 4 )
+
+[node name="RayCast" type="RayCast" parent="."]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0 )
+enabled = true
+cast_to = Vector3( 0, -15, 0 )
+collision_mask = 5
+debug_shape_custom_color = Color( 0, 0.607843, 1, 1 )
+debug_shape_thickness = 3
+script = ExtResource( 1 )
+
+[connection signal="timeout" from="Timers/Nav_timer" to="." method="_on_Nav_timer_timeout"]
+[connection signal="body_entered" from="Areas/FOV" to="." method="_on_FOV_body_entered"]
+[connection signal="body_exited" from="Areas/FOV" to="." method="_on_FOV_body_exited"]
+[connection signal="body_entered" from="Areas/Sound_area" to="." method="_on_Sound_area_body_entered"]
+[connection signal="body_exited" from="Areas/Sound_area" to="." method="_on_Sound_area_body_exited"]

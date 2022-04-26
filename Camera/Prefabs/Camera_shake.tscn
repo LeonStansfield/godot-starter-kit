@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Camera/Scripts/Camera_shake.gd" type="Script" id=1]
+[ext_resource path="res://Camera/Scripts/Camera_racing_follow.gd" type="Script" id=2]
+
+[node name="Camera_shake" type="Spatial"]
+script = ExtResource( 2 )
+
+[node name="Camera" type="Camera" parent="."]
+script = ExtResource( 1 )

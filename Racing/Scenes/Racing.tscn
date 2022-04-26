@@ -1,0 +1,40 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Racing/Prefabs/Race_car.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Camera/Prefabs/Camera_shake.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Prototype_textures/Blockmesh_mat.tres" type="Material" id=3]
+
+[sub_resource type="ProceduralSky" id=2]
+
+[sub_resource type="Environment" id=3]
+background_mode = 2
+background_sky = SubResource( 2 )
+ambient_light_energy = 0.3
+auto_exposure_enabled = true
+
+[node name="Racing" type="Spatial"]
+
+[node name="Meshes" type="Spatial" parent="."]
+
+[node name="CSGBox" type="CSGBox" parent="Meshes"]
+use_collision = true
+width = 50.0
+depth = 48.0
+material = ExtResource( 3 )
+
+[node name="Camera_shake" parent="." instance=ExtResource( 2 )]
+lerp_speed = 3
+target_path = NodePath("../Race_car/CarMesh")
+offset = Vector3( 0, 7, 5 )
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource( 3 )
+
+[node name="DirectionalLight" type="DirectionalLight" parent="."]
+transform = Transform( 0.707107, 0.5, -0.5, 0, 0.707107, 0.707107, 0.707107, -0.5, 0.5, 0, 8, 0 )
+light_energy = 0.7
+shadow_enabled = true
+
+[node name="Race_car" parent="." instance=ExtResource( 1 )]
+
+[editable path="Race_car"]

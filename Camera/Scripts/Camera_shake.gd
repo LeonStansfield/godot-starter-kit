@@ -15,7 +15,7 @@ export var max_y = 10
 export var max_z = 5
 
 func _ready():
-	Globals.Camera = get_node("../Camera")
+	Globals.Camera = self
 
 func _process(delta):
 	time += delta

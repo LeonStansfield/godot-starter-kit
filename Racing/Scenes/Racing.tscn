@@ -36,5 +36,6 @@ light_energy = 0.7
 shadow_enabled = true
 
 [node name="Race_car" parent="." instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.02553, 0 )
 
 [editable path="Race_car"]

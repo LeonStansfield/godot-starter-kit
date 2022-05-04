@@ -24,14 +24,14 @@ func _process(delta):
 		return
 	# f/b input
 	speed_input = 0
-	speed_input += Input.get_action_strength("accelerate")
-	speed_input -= Input.get_action_strength("brake") 
+	speed_input += Input.get_action_strength("forward")
+	speed_input -= Input.get_action_strength("back") 
 	speed_input *= acceleration
 	# steer input
 #	rotate_target = lerp(rotate_target, rotate_input, 5 * delta)
 	rotate_input = 0
-	rotate_input += Input.get_action_strength("steer_left")
-	rotate_input -= Input.get_action_strength("steer_right")
+	rotate_input += Input.get_action_strength("left")
+	rotate_input -= Input.get_action_strength("right")
 	rotate_input *= deg2rad(steering)
 
 	# particles

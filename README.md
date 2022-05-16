@@ -1,4 +1,4 @@
-# Ultimate-godot-project
+# Godot-Starter-Kit
 A project full of prefabs and scripts that I can easily drag and drop into new 3D godot projects.
 
 This project currently contains:

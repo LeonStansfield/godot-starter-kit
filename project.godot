@@ -31,7 +31,6 @@ This project currently contains:
 
 I have tried to comment my code, and know not all of it is optimized or amazing, but it functions so hopefully it will help!
 "
-run/main_scene="res://Enemy_AI/Scenes/enemy_AI.tscn"
 config/icon="res://icon.png"
 
 [autoload]

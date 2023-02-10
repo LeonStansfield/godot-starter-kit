@@ -43,7 +43,7 @@ func _process(delta):
 		look_at(global_transform.origin - Vector3(velocity.x, 0, velocity.z).normalized(), Vector3.UP)
 		vision()
 		ray_collision()
-		states()
+		states(delta)
 		
 		#triggers weather player has been seen recently or not
 		if player_seen:
@@ -52,17 +52,17 @@ func _process(delta):
 		elif not_seen_started == false and reached_last_seen_pos:
 			player_not_seen()
 
-func states():
+func states(delta):
 	if !player_seen_recently and !attack:
 		print("idle")
 		#idle
 		
 	if (player_seen_recently and player_seen and !attack) || player_in_sound_range:
-		move_to_target(Last_seen_pos)
+		move_to_target(delta)
 		#chase
 	
 	if player_seen_recently and !reached_last_seen_pos and !attack:
-		move_to_target(Last_seen_pos)
+		move_to_target(delta)
 		#chase
 		
 	if player_seen_recently and reached_last_seen_pos and !attack:
